@@ -2,6 +2,7 @@ const webpack = require(`webpack`);
 const CopyWebpackPlugin = require(`copy-webpack-plugin`);
 const MiniCssExtractPlugin = require(`mini-css-extract-plugin`);
 const AssetsPlugin = require(`assets-webpack-plugin`);
+const Fiber = require(`fibers`); // Improves (Dart) SASS processing speed
 
 const config = require(`./config.js`);
 
@@ -33,7 +34,21 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         exclude: /node_modules/,
-        use: [`style-loader`, MiniCssExtractPlugin.loader, `css-loader`, `postcss-loader`, `sass-loader`],
+        use: [
+          `style-loader`,
+          MiniCssExtractPlugin.loader,
+          `css-loader`,
+          `postcss-loader`,
+          {
+            loader: `sass-loader`,
+            options: {
+              sourceComments: true,
+              includePaths: [`${config.paths.assets}/styles`],
+              implementation: require(`sass`),
+              fiber: Fiber,
+            },
+          },
+        ],
       },
     ],
   },
