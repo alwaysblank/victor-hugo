@@ -30,3 +30,13 @@ a {
 .content {
   padding: 0 32px;
 }
+
+.does-not-exist {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  content: "I'm not real!";
+  display: block;
+}
