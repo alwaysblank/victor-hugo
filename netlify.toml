@@ -2,8 +2,8 @@
   YARN_VERSION = "1.13.0"
 
 [build]
-  command = "yarn build"
+  command = "yarn build --scripts-prepend-node-path"
   publish = "dist"
 
 [context.deploy-preview]
-  command = "yarn build:preview"
+  command = "yarn build:preview --scripts-prepend-node-path"
